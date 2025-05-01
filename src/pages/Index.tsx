@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import FeaturedBikes from "@/components/FeaturedBikes";
 import ElectricBikes from "@/components/ElectricBikes";
+import BikeSelector from "@/components/BikeSelector";
 import Features from "@/components/Features";
 import Testimonials from "@/components/Testimonials";
 import Footer from "@/components/Footer";
@@ -14,6 +15,7 @@ const Index = () => {
       <main className="flex-grow">
         <Hero />
         <FeaturedBikes />
+        <BikeSelector />
         <ElectricBikes />
         <Features />
         <Testimonials />
