@@ -11,6 +11,11 @@ const Navbar = () => {
   const menuItems = [
     { label: "Главная", href: "/" },
     { label: "Каталог", href: "/catalog" },
+    { 
+      label: "Электровелосипеды", 
+      href: "/electric",
+      icon: "Zap"
+    },
     { label: "О нас", href: "/about" },
     { label: "Контакты", href: "/contacts" }
   ];
@@ -38,8 +43,9 @@ const Navbar = () => {
             <Link
               key={item.label}
               to={item.href}
-              className="text-sm font-medium transition-colors hover:text-primary"
+              className="text-sm font-medium transition-colors hover:text-primary flex items-center gap-1"
             >
+              {item.icon && <Icon name={item.icon as any} size={14} />}
               {item.label}
             </Link>
           ))}
@@ -65,9 +71,10 @@ const Navbar = () => {
                 <Link
                   key={item.label}
                   to={item.href}
-                  className="text-sm font-medium transition-colors hover:text-primary"
+                  className="text-sm font-medium transition-colors hover:text-primary flex items-center gap-1"
                   onClick={() => setMobileMenuOpen(false)}
                 >
+                  {item.icon && <Icon name={item.icon as any} size={14} />}
                   {item.label}
                 </Link>
               ))}

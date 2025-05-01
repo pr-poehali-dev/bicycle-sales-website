@@ -2,6 +2,7 @@
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Icon from "./ui/icon";
+import { Badge } from "./ui/badge";
 
 interface BikeCardProps {
   id: string;
@@ -11,9 +12,21 @@ interface BikeCardProps {
   imageUrl: string;
   rating: number;
   category: string;
+  isElectric?: boolean;
+  range?: number;
 }
 
-const BikeCard = ({ id, title, price, oldPrice, imageUrl, rating, category }: BikeCardProps) => {
+const BikeCard = ({ 
+  id, 
+  title, 
+  price, 
+  oldPrice, 
+  imageUrl, 
+  rating, 
+  category, 
+  isElectric = false, 
+  range 
+}: BikeCardProps) => {
   return (
     <Card className="overflow-hidden transition-all hover:shadow-md group">
       <div className="relative overflow-hidden pt-[56.25%]">
@@ -26,6 +39,12 @@ const BikeCard = ({ id, title, price, oldPrice, imageUrl, rating, category }: Bi
           <div className="absolute left-2 top-2 bg-destructive px-2 py-1 text-xs font-semibold text-white rounded">
             Скидка {Math.round(((oldPrice - price) / oldPrice) * 100)}%
           </div>
+        )}
+        {isElectric && (
+          <Badge className="absolute left-2 bottom-2 bg-primary/90 hover:bg-primary text-white">
+            <Icon name="Zap" className="mr-1" size={12} />
+            Электро
+          </Badge>
         )}
         <Button
           variant="ghost"
@@ -49,13 +68,19 @@ const BikeCard = ({ id, title, price, oldPrice, imageUrl, rating, category }: Bi
           {Array.from({ length: 5 }).map((_, index) => (
             <Icon 
               key={index} 
-              name={index < rating ? "Star" : "StarOff"} 
+              name={index < Math.floor(rating) ? "Star" : (index < rating ? "StarHalf" : "Star")} 
               className={index < rating ? "text-amber-400" : "text-gray-300"} 
               size={16} 
             />
           ))}
           <span className="ml-1 text-xs text-muted-foreground">{rating.toFixed(1)}</span>
         </div>
+        {isElectric && range && (
+          <div className="mb-2 flex items-center text-sm text-muted-foreground">
+            <Icon name="Battery" className="mr-1 text-green-500" size={14} />
+            <span>Запас хода: до {range} км</span>
+          </div>
+        )}
         <div className="flex items-baseline gap-2">
           {oldPrice && (
             <span className="text-sm text-muted-foreground line-through">

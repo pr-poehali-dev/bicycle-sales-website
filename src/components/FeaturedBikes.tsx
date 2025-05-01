@@ -12,7 +12,8 @@ const bikesData = [
     oldPrice: 59900,
     imageUrl: "https://images.unsplash.com/photo-1511994298241-608e28f14fde?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
     rating: 4.8,
-    category: "Горные"
+    category: "Горные",
+    isElectric: false
   },
   {
     id: "2",
@@ -20,7 +21,8 @@ const bikesData = [
     price: 92500,
     imageUrl: "https://images.unsplash.com/photo-1532298229144-0ec0c57515c7?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
     rating: 4.9,
-    category: "Шоссейные"
+    category: "Шоссейные",
+    isElectric: false
   },
   {
     id: "3",
@@ -29,19 +31,42 @@ const bikesData = [
     oldPrice: 36500,
     imageUrl: "https://images.unsplash.com/photo-1507035895480-2b3156c31fc8?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
     rating: 4.6,
-    category: "Городские"
+    category: "Городские",
+    isElectric: false
   },
   {
     id: "4",
+    title: "Электровелосипед E-City Power 2.0",
+    price: 89900,
+    imageUrl: "https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
+    rating: 4.9,
+    category: "Городские",
+    isElectric: true,
+    range: 80
+  },
+  {
+    id: "5",
     title: "Детский велосипед Kids Rider K2",
     price: 18500,
     imageUrl: "https://images.unsplash.com/photo-1595432541891-a481ae9fbf8c?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
     rating: 4.7,
-    category: "Детские"
+    category: "Детские",
+    isElectric: false
+  },
+  {
+    id: "6",
+    title: "Горный электровелосипед E-Mountain X1",
+    price: 129900,
+    oldPrice: 149900,
+    imageUrl: "https://images.unsplash.com/photo-1565108273456-e2a507ee35cb?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
+    rating: 4.8,
+    category: "Горные",
+    isElectric: true,
+    range: 95
   }
 ];
 
-const categories = ["Все", "Горные", "Шоссейные", "Городские", "Детские"];
+const categories = ["Все", "Электро", "Горные", "Шоссейные", "Городские", "Детские"];
 
 const FeaturedBikes = () => {
   const [selectedCategory, setSelectedCategory] = useState("Все");
@@ -50,6 +75,8 @@ const FeaturedBikes = () => {
   useEffect(() => {
     if (selectedCategory === "Все") {
       setDisplayedBikes(bikesData);
+    } else if (selectedCategory === "Электро") {
+      setDisplayedBikes(bikesData.filter(bike => bike.isElectric));
     } else {
       setDisplayedBikes(bikesData.filter(bike => bike.category === selectedCategory));
     }
@@ -70,7 +97,9 @@ const FeaturedBikes = () => {
                 variant={selectedCategory === category ? "default" : "outline"}
                 onClick={() => setSelectedCategory(category)}
                 size="sm"
+                className={category === "Электро" ? "gap-1" : ""}
               >
+                {category === "Электро" && <Icon name="Zap" size={14} />}
                 {category}
               </Button>
             ))}

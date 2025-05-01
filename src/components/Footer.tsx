@@ -15,7 +15,7 @@ const Footer = () => {
               <Logo />
             </div>
             <p className="mt-4 text-sm text-gray-400">
-              Магазин качественных велосипедов и аксессуаров с доставкой по всей России.
+              Магазин качественных велосипедов и электровелосипедов с доставкой по всей России.
             </p>
             <div className="flex gap-4 mt-6">
               <a href="#" className="text-gray-400 hover:text-white transition-colors">
@@ -39,6 +39,10 @@ const Footer = () => {
               <li><Link to="/catalog/mountain" className="text-gray-400 hover:text-white transition-colors">Горные велосипеды</Link></li>
               <li><Link to="/catalog/road" className="text-gray-400 hover:text-white transition-colors">Шоссейные велосипеды</Link></li>
               <li><Link to="/catalog/city" className="text-gray-400 hover:text-white transition-colors">Городские велосипеды</Link></li>
+              <li><Link to="/electric" className="text-gray-400 hover:text-white transition-colors flex items-center gap-1">
+                <Icon name="Zap" size={14} />
+                Электровелосипеды
+              </Link></li>
               <li><Link to="/catalog/kids" className="text-gray-400 hover:text-white transition-colors">Детские велосипеды</Link></li>
               <li><Link to="/catalog/accessories" className="text-gray-400 hover:text-white transition-colors">Аксессуары</Link></li>
             </ul>
@@ -68,7 +72,7 @@ const Footer = () => {
               </li>
               <li className="flex items-center gap-2">
                 <Icon name="Mail" className="text-primary" />
-                <a href="mailto:info@velomir.ru" className="hover:text-white transition-colors">info@velomir.ru</a>
+                <a href="mailto:info@veloexpert.ru" className="hover:text-white transition-colors">info@veloexpert.ru</a>
               </li>
               <li className="flex items-center gap-2">
                 <Icon name="Clock" className="text-primary" />
@@ -79,7 +83,7 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-gray-800 mt-10 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-gray-500">© {currentYear} ВелоМир. Все права защищены.</p>
+          <p className="text-sm text-gray-500">© {currentYear} ВелоЭксперт. Все права защищены.</p>
           <div className="flex gap-6">
             <Link to="/policy" className="text-sm text-gray-500 hover:text-white transition-colors">Политика конфиденциальности</Link>
             <Link to="/terms" className="text-sm text-gray-500 hover:text-white transition-colors">Условия использования</Link>
