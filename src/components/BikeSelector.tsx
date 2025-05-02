@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import Icon from "./ui/icon";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
-import { motion } from "framer-motion";
 
 const BikeSelector = () => {
   const [height, setHeight] = useState<string>("160-170");
@@ -142,66 +141,19 @@ const BikeSelector = () => {
 
   const selectedBike = bikeTypes[terrain as keyof typeof bikeTypes]?.[experience as "новичок" | "опытный"]?.[height as "160-170" | "170-180" | "180+"];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: { 
-      opacity: 1,
-      transition: { 
-        staggerChildren: 0.2
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: { 
-      y: 0, 
-      opacity: 1,
-      transition: { 
-        type: "spring",
-        stiffness: 100
-      }
-    }
-  };
-
-  const imageVariants = {
-    hidden: { scale: 0.8, opacity: 0 },
-    visible: { 
-      scale: 1, 
-      opacity: 1,
-      transition: { 
-        type: "spring",
-        stiffness: 100,
-        delay: 0.2
-      }
-    }
-  };
-
   return (
     <section className="py-16 bg-gradient-to-b from-white to-blue-50">
       <div className="container">
-        <motion.div 
-          className="text-center max-w-3xl mx-auto mb-12"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
+        <div className="text-center max-w-3xl mx-auto mb-12 animate-fade-in">
           <h2 className="text-3xl font-bold mb-4">Подберем идеальный велосипед</h2>
           <p className="text-muted-foreground">
             Ответьте на несколько вопросов, и мы порекомендуем модель, которая подойдет именно вам
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid md:grid-cols-5 gap-8">
-          <motion.div 
-            className="md:col-span-2 space-y-8"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            <motion.div variants={itemVariants}>
+          <div className="md:col-span-2 space-y-8 animate-fade-in-up">
+            <div className="animate-fade-in delay-100">
               <h3 className="text-xl font-semibold mb-4">Ваш рост</h3>
               <Tabs value={height} onValueChange={setHeight} className="w-full">
                 <TabsList className="grid grid-cols-3 w-full">
@@ -210,9 +162,9 @@ const BikeSelector = () => {
                   <TabsTrigger value="180+">180+ см</TabsTrigger>
                 </TabsList>
               </Tabs>
-            </motion.div>
+            </div>
 
-            <motion.div variants={itemVariants}>
+            <div className="animate-fade-in delay-200">
               <h3 className="text-xl font-semibold mb-4">Где планируете кататься?</h3>
               <Tabs value={terrain} onValueChange={setTerrain} className="w-full">
                 <TabsList className="grid grid-cols-3 w-full">
@@ -230,9 +182,9 @@ const BikeSelector = () => {
                   </TabsTrigger>
                 </TabsList>
               </Tabs>
-            </motion.div>
+            </div>
 
-            <motion.div variants={itemVariants}>
+            <div className="animate-fade-in delay-300">
               <h3 className="text-xl font-semibold mb-4">Уровень опыта</h3>
               <Tabs value={experience} onValueChange={setExperience} className="w-full">
                 <TabsList className="grid grid-cols-2 w-full">
@@ -240,24 +192,18 @@ const BikeSelector = () => {
                   <TabsTrigger value="опытный">Опытный</TabsTrigger>
                 </TabsList>
               </Tabs>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
 
-          <motion.div 
-            className="md:col-span-3"
-            variants={imageVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            <Card className="overflow-hidden h-full">
+          <div className="md:col-span-3 animate-fade-in delay-400">
+            <Card className="overflow-hidden h-full animate-scale-up">
               {selectedBike && (
                 <div className="grid md:grid-cols-5 h-full">
                   <div className="md:col-span-3 h-64 md:h-full relative overflow-hidden">
                     <img 
                       src={selectedBike.imageUrl} 
                       alt={selectedBike.title}
-                      className="absolute inset-0 w-full h-full object-cover"
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 hover:scale-110"
                     />
                     <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-4 text-white md:hidden">
                       <h3 className="font-bold text-xl">{selectedBike.title}</h3>
@@ -285,11 +231,11 @@ const BikeSelector = () => {
                     <div className="mt-6">
                       <div className="text-2xl font-bold mb-3">{selectedBike.price.toLocaleString()} ₽</div>
                       <div className="flex flex-col sm:flex-row gap-3">
-                        <Button className="w-full gap-2">
+                        <Button className="w-full gap-2 hover:scale-105 transition-transform">
                           <Icon name="ShoppingCart" />
                           В корзину
                         </Button>
-                        <Button variant="outline" className="w-full gap-2">
+                        <Button variant="outline" className="w-full gap-2 hover:bg-blue-50">
                           <Icon name="Info" />
                           Подробнее
                         </Button>
@@ -299,7 +245,7 @@ const BikeSelector = () => {
                 </div>
               )}
             </Card>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

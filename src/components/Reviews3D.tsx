@@ -2,7 +2,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import Icon from "./ui/icon";
-import { motion, useAnimation, AnimatePresence } from "framer-motion";
 
 interface Review {
   id: number;
@@ -59,7 +58,6 @@ const Reviews3D = () => {
 
   const [active, setActive] = useState(0);
   const [direction, setDirection] = useState(0);
-  const controls = useAnimation();
   const containerRef = useRef<HTMLDivElement>(null);
   const autoplayTimerRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -91,50 +89,15 @@ const Reviews3D = () => {
     };
   }, [active]);
 
-  const variants = {
-    enter: (direction: number) => ({
-      x: direction > 0 ? 300 : -300,
-      opacity: 0,
-      rotateY: direction > 0 ? 45 : -45,
-      scale: 0.8,
-    }),
-    center: {
-      x: 0,
-      opacity: 1,
-      rotateY: 0,
-      scale: 1,
-      transition: {
-        duration: 0.5,
-        type: "spring",
-        stiffness: 100
-      }
-    },
-    exit: (direction: number) => ({
-      x: direction > 0 ? -300 : 300,
-      opacity: 0,
-      rotateY: direction > 0 ? -45 : 45,
-      scale: 0.8,
-      transition: {
-        duration: 0.5
-      }
-    })
-  };
-
   return (
     <section className="py-16 bg-gradient-to-r from-indigo-50 to-blue-50 overflow-hidden">
       <div className="container">
-        <motion.div 
-          className="text-center max-w-3xl mx-auto mb-12"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
+        <div className="text-center max-w-3xl mx-auto mb-12 animate-fade-in">
           <h2 className="text-3xl font-bold mb-4">Что говорят наши клиенты</h2>
           <p className="text-muted-foreground">
             Реальные отзывы от тех, кто уже выбрал ВелоЭксперт
           </p>
-        </motion.div>
+        </div>
 
         <div className="relative max-w-4xl mx-auto perspective-1000">
           <div 
@@ -148,110 +111,93 @@ const Reviews3D = () => {
             }}
             onMouseLeave={resetAutoplayTimer}
           >
-            <AnimatePresence initial={false} custom={direction} mode="wait">
-              <motion.div
-                key={active}
-                custom={direction}
-                variants={variants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                className="absolute w-full h-full"
-              >
-                <Card className="shadow-lg bg-white/90 backdrop-blur border-0 overflow-hidden h-full">
-                  <CardContent className="p-0 h-full">
-                    <div className="grid grid-cols-1 md:grid-cols-3 h-full">
-                      <div className="hidden md:block relative bg-gradient-to-br from-blue-600 to-indigo-700 p-6 text-white">
-                        <div className="absolute -right-8 top-1/2 -translate-y-1/2">
-                          <div className="w-16 h-16 bg-white/10 rounded-full backdrop-blur"></div>
-                        </div>
-                        <div className="absolute -left-12 -bottom-12">
-                          <div className="w-24 h-24 bg-white/5 rounded-full backdrop-blur"></div>
-                        </div>
-                        <div className="relative z-10">
-                          <div className="text-3xl font-bold mb-2">
-                            {reviews[active].rating}.0
-                          </div>
-                          <div className="flex mb-4">
-                            {Array.from({ length: 5 }).map((_, idx) => (
-                              <Icon 
-                                key={idx} 
-                                name="Star" 
-                                className={idx < reviews[active].rating ? "text-amber-300" : "text-gray-400"} 
-                              />
-                            ))}
-                          </div>
-                          <div className="text-sm opacity-80 mt-auto pt-8">
-                            Дата отзыва: {reviews[active].date}
-                          </div>
-                        </div>
+            <div
+              key={active}
+              className={`absolute w-full h-full transition-all duration-500 ${
+                direction > 0 ? "animate-slide-in-right" : "animate-slide-in-left"
+              }`}
+            >
+              <Card className="shadow-lg bg-white/90 backdrop-blur border-0 overflow-hidden h-full">
+                <CardContent className="p-0 h-full">
+                  <div className="grid grid-cols-1 md:grid-cols-3 h-full">
+                    <div className="hidden md:block relative bg-gradient-to-br from-blue-600 to-indigo-700 p-6 text-white">
+                      <div className="absolute -right-8 top-1/2 -translate-y-1/2">
+                        <div className="w-16 h-16 bg-white/10 rounded-full backdrop-blur"></div>
                       </div>
-                      <div className="md:col-span-2 p-6 flex flex-col">
-                        <div className="flex items-center gap-3 mb-4">
-                          <img 
-                            src={reviews[active].avatar} 
-                            alt={reviews[active].name}
-                            className="w-12 h-12 rounded-full object-cover" 
-                          />
-                          <div>
-                            <div className="font-semibold">{reviews[active].name}</div>
-                            <div className="text-sm text-muted-foreground">Клиент ВелоЭксперт</div>
-                          </div>
-                          <div className="flex ml-auto md:hidden">
-                            {Array.from({ length: 5 }).map((_, idx) => (
-                              <Icon 
-                                key={idx} 
-                                name="Star" 
-                                size={16}
-                                className={idx < reviews[active].rating ? "text-amber-400" : "text-gray-300"} 
-                              />
-                            ))}
-                          </div>
+                      <div className="absolute -left-12 -bottom-12">
+                        <div className="w-24 h-24 bg-white/5 rounded-full backdrop-blur"></div>
+                      </div>
+                      <div className="relative z-10">
+                        <div className="text-3xl font-bold mb-2">
+                          {reviews[active].rating}.0
                         </div>
-                        <div className="flex-1">
-                          <p className="text-gray-700 text-lg italic leading-relaxed">
-                            "{reviews[active].text}"
-                          </p>
+                        <div className="flex mb-4">
+                          {Array.from({ length: 5 }).map((_, idx) => (
+                            <Icon 
+                              key={idx} 
+                              name="Star" 
+                              className={idx < reviews[active].rating ? "text-amber-300" : "text-gray-400"} 
+                            />
+                          ))}
                         </div>
-                        <div className="flex justify-between items-center mt-6">
-                          <div className="text-sm text-muted-foreground md:hidden">
-                            Дата: {reviews[active].date}
-                          </div>
-                          <div className="flex gap-2 ml-auto">
-                            <motion.div
-                              className="inline-flex"
-                              whileHover={{ scale: 1.1 }}
-                              whileTap={{ scale: 0.9 }}
-                            >
-                              <button
-                                onClick={prevReview}
-                                className="p-2 rounded-full border hover:bg-primary/5 transition-colors"
-                                aria-label="Предыдущий отзыв"
-                              >
-                                <Icon name="ChevronLeft" />
-                              </button>
-                            </motion.div>
-                            <motion.div
-                              className="inline-flex"
-                              whileHover={{ scale: 1.1 }}
-                              whileTap={{ scale: 0.9 }}
-                            >
-                              <button
-                                onClick={nextReview}
-                                className="p-2 rounded-full border hover:bg-primary/5 transition-colors"
-                                aria-label="Следующий отзыв"
-                              >
-                                <Icon name="ChevronRight" />
-                              </button>
-                            </motion.div>
-                          </div>
+                        <div className="text-sm opacity-80 mt-auto pt-8">
+                          Дата отзыва: {reviews[active].date}
                         </div>
                       </div>
                     </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            </AnimatePresence>
+                    <div className="md:col-span-2 p-6 flex flex-col">
+                      <div className="flex items-center gap-3 mb-4">
+                        <img 
+                          src={reviews[active].avatar} 
+                          alt={reviews[active].name}
+                          className="w-12 h-12 rounded-full object-cover" 
+                        />
+                        <div>
+                          <div className="font-semibold">{reviews[active].name}</div>
+                          <div className="text-sm text-muted-foreground">Клиент ВелоЭксперт</div>
+                        </div>
+                        <div className="flex ml-auto md:hidden">
+                          {Array.from({ length: 5 }).map((_, idx) => (
+                            <Icon 
+                              key={idx} 
+                              name="Star" 
+                              size={16}
+                              className={idx < reviews[active].rating ? "text-amber-400" : "text-gray-300"} 
+                            />
+                          ))}
+                        </div>
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-gray-700 text-lg italic leading-relaxed">
+                          "{reviews[active].text}"
+                        </p>
+                      </div>
+                      <div className="flex justify-between items-center mt-6">
+                        <div className="text-sm text-muted-foreground md:hidden">
+                          Дата: {reviews[active].date}
+                        </div>
+                        <div className="flex gap-2 ml-auto">
+                          <button
+                            onClick={prevReview}
+                            className="p-2 rounded-full border hover:bg-primary/5 transition-colors hover:scale-105 active:scale-95"
+                            aria-label="Предыдущий отзыв"
+                          >
+                            <Icon name="ChevronLeft" />
+                          </button>
+                          <button
+                            onClick={nextReview}
+                            className="p-2 rounded-full border hover:bg-primary/5 transition-colors hover:scale-105 active:scale-95"
+                            aria-label="Следующий отзыв"
+                          >
+                            <Icon name="ChevronRight" />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           </div>
 
           <div className="flex justify-center mt-6 space-x-2">

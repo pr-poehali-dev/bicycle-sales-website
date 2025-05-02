@@ -1,19 +1,13 @@
 
 import { Button } from "@/components/ui/button";
 import Icon from "./ui/icon";
-import { motion } from "framer-motion";
 
 const Hero = () => {
   return (
     <div className="relative overflow-hidden bg-gradient-to-r from-indigo-50 to-blue-50">
       <div className="container py-12 md:py-20 lg:py-24">
         <div className="grid gap-8 md:grid-cols-2 items-center">
-          <motion.div 
-            className="space-y-6"
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-          >
+          <div className="space-y-6 animate-fade-in">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
               Твой идеальный велосипед в <span className="text-primary bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-indigo-600">ВелоЭксперт</span>
             </h1>
@@ -31,41 +25,21 @@ const Hero = () => {
               </Button>
             </div>
             <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm">
-              <motion.div 
-                className="flex items-center gap-2"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 0.6 }}
-              >
+              <div className="flex items-center gap-2 animate-fade-in delay-300">
                 <Icon name="Truck" className="text-primary" />
                 <span>Быстрая доставка</span>
-              </motion.div>
-              <motion.div 
-                className="flex items-center gap-2"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 0.8 }}
-              >
+              </div>
+              <div className="flex items-center gap-2 animate-fade-in delay-500">
                 <Icon name="Shield" className="text-primary" />
                 <span>Гарантия 2 года</span>
-              </motion.div>
-              <motion.div 
-                className="flex items-center gap-2"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 1 }}
-              >
+              </div>
+              <div className="flex items-center gap-2 animate-fade-in delay-700">
                 <Icon name="RefreshCw" className="text-primary" />
                 <span>30 дней на возврат</span>
-              </motion.div>
+              </div>
             </div>
-          </motion.div>
-          <motion.div 
-            className="relative hidden md:block"
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-          >
+          </div>
+          <div className="relative hidden md:block animate-fade-in">
             <div className="absolute -top-16 -right-16 h-72 w-72 bg-primary/10 rounded-full animate-pulse" style={{ animationDuration: '4s' }} />
             <div className="absolute -bottom-20 -left-20 h-80 w-80 bg-primary/5 rounded-full animate-pulse" style={{ animationDuration: '6s', animationDelay: '1s' }} />
             <img 
@@ -77,7 +51,7 @@ const Hero = () => {
               <Icon name="Award" className="text-amber-500" />
               <span className="font-bold">Топ продаж 2025</span>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
       
