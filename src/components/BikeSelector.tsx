@@ -1,66 +1,56 @@
 
-import { useBikeSelector } from "./bike-selector/hooks/useBikeSelector";
-import HeightSelector from "./bike-selector/HeightSelector";
-import TerrainSelector from "./bike-selector/TerrainSelector";
-import ExperienceSelector from "./bike-selector/ExperienceSelector";
-import BikeResult from "./bike-selector/BikeResult";
-import SectionHeader from "./bike-selector/SectionHeader";
-import { BikeSelectorProps } from "./bike-selector/types";
+import React from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+import Icon from "./ui/Icon";
 
-const BikeSelector = ({
-  initialHeight,
-  initialTerrain,
-  initialExperience
-}: BikeSelectorProps = {}) => {
-  const {
-    height,
-    setHeight,
-    terrain,
-    setTerrain,
-    experience,
-    setExperience,
-    selectedBike,
-    getTerrainDisplayName
-  } = useBikeSelector(
-    initialHeight,
-    initialTerrain,
-    initialExperience
-  );
-
+const BikeSelector = () => {
   return (
-    <section className="py-16 bg-gradient-to-b from-white to-blue-50">
-      <div className="container">
-        <SectionHeader 
-          title="Подберем идеальный велосипед"
-          description="Ответьте на несколько вопросов, и мы порекомендуем модель, которая подойдет именно вам"
-        />
-
-        <div className="grid md:grid-cols-5 gap-8">
-          <div className="md:col-span-2 space-y-8 animate-fade-in-up">
-            <HeightSelector 
-              value={height} 
-              onChange={setHeight} 
-            />
-            
-            <TerrainSelector 
-              value={terrain} 
-              onChange={setTerrain} 
-            />
-            
-            <ExperienceSelector 
-              value={experience} 
-              onChange={setExperience} 
-            />
-          </div>
-
-          <div className="md:col-span-3 animate-fade-in delay-400">
-            {selectedBike && (
-              <BikeResult 
-                bike={selectedBike} 
-                terrainDisplayName={getTerrainDisplayName()} 
-              />
-            )}
-          </div>
+    <section className="py-16">
+      <div className="container mx-auto px-4">
+        <div className="text-center max-w-3xl mx-auto mb-12 animate-fade-in">
+          <h2 className="text-3xl font-bold mb-4">Подберем идеальный велосипед</h2>
+          <p className="text-muted-foreground">
+            Ответьте на несколько вопросов, и мы предложим велосипеды, 
+            которые лучше всего подойдут для ваших целей
+          </p>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 animate-fade-in-up delay-200">
+          <Card className="hover:shadow-md transition-all">
+            <CardHeader className="text-center">
+              <div className="mx-auto rounded-full bg-primary/10 p-3 w-12 h-12 flex items-center justify-center mb-3">
+                <Icon name="Ruler" className="text-primary" size={20} />
+              </div>
+              <CardTitle className="text-xl">Рост и телосложение</CardTitle>
+            </CardHeader>
+            <CardContent className="text-center text-muted-foreground">
+              Размер рамы имеет решающее значение для комфортной и безопасной езды
+            </CardContent>
+          </Card>
+          
+          <Card className="hover:shadow-md transition-all">
+            <CardHeader className="text-center">
+              <div className="mx-auto rounded-full bg-primary/10 p-3 w-12 h-12 flex items-center justify-center mb-3">
+                <Icon name="Mountain" className="text-primary" size={20} />
+              </div>
+              <CardTitle className="text-xl">Тип местности</CardTitle>
+            </CardHeader>
+            <CardContent className="text-center text-muted-foreground">
+              Разные виды велосипедов предназначены для разных поверхностей и условий езды
+            </CardContent>
+          </Card>
+          
+          <Card className="hover:shadow-md transition-all">
+            <CardHeader className="text-center">
+              <div className="mx-auto rounded-full bg-primary/10 p-3 w-12 h-12 flex items-center justify-center mb-3">
+                <Icon name="Timer" className="text-primary" size={20} />
+              </div>
+              <CardTitle className="text-xl">Опыт катания</CardTitle>
+            </CardHeader>
+            <CardContent className="text-center text-muted-foreground">
+              Мы учтем ваш уровень опыта, чтобы предложить велосипед соответствующего уровня
+            </CardContent>
+          </Card>
         </div>
       </div>
     </section>

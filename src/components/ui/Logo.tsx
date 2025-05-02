@@ -1,23 +1,46 @@
 
+import React from "react";
 import { Link } from "react-router-dom";
+import { cn } from "@/lib/utils";
 
-const Logo = () => {
+interface LogoProps {
+  className?: string;
+}
+
+const Logo: React.FC<LogoProps> = ({ className }) => {
   return (
-    <Link to="/" className="flex items-center gap-2">
+    <Link to="/" className={cn("flex items-center gap-2 font-bold text-xl", className)}>
       <svg
-        width="40"
-        height="40"
-        viewBox="0 0 24 24"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         className="text-primary"
       >
-        <circle cx="12" cy="12" r="8" stroke="currentColor" strokeWidth="2" />
-        <path d="M7 12C7 12 8.5 9 12 9C15.5 9 17 12 17 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-        <path d="M12 4V7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-        <path d="M12 17V20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+        <path
+          d="M16 2C8.268 2 2 8.268 2 16C2 23.732 8.268 30 16 30C23.732 30 30 23.732 30 16C30 8.268 23.732 2 16 2Z"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M16 8L16 24"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M8 16L24 16"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
       </svg>
-      <span className="text-xl font-bold">ВелоЭксперт</span>
+      <span>Поехали</span>
     </Link>
   );
 };
