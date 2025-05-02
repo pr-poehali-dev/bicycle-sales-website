@@ -5,7 +5,7 @@ import FeaturedBikes from "@/components/FeaturedBikes";
 import ElectricBikes from "@/components/ElectricBikes";
 import BikeSelector from "@/components/BikeSelector";
 import Features from "@/components/Features";
-import Testimonials from "@/components/Testimonials";
+import Reviews3D from "@/components/Reviews3D";
 import Footer from "@/components/Footer";
 
 const Index = () => {
@@ -18,7 +18,7 @@ const Index = () => {
         <BikeSelector />
         <ElectricBikes />
         <Features />
-        <Testimonials />
+        <Reviews3D />
       </main>
       <Footer />
     </div>
